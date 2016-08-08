@@ -7,18 +7,7 @@ import template from './app.component.html';
  
 @Component({
   selector: 'app',
-  template,
-  directives: [PartiesFormComponent]
+  template
 })
 
-export class AppComponent {
-  parties: Mongo.Cursor<any>;
- 
-  constructor() {
-    this.parties = Parties.find();
-  }
-
-  removeParty(party) {
-    Parties.remove(party._id);
-  }
-}
+export class AppComponent {}
