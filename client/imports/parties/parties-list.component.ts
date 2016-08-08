@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ROUTER_DIRECTIVES } from '@angular/router';
 import { Mongo } from 'meteor/mongo';
 import { LoginButtons } from 'angular2-meteor-accounts-ui';
+import { MeteorComponent } from 'angular2-meteor';
  
 import { Parties }   from '../../../both/collections/parties/parties.collection';
 import { Party } from '../../../both/interfaces/party.interface';
@@ -18,11 +19,19 @@ import template from './parties-list.component.html';
       LoginButtons
       ]
 })
-export class PartiesListComponent implements OnInit {
+export class PartiesListComponent extends MeteorComponent implements OnInit {
   parties: Mongo.Cursor<Party>;
- 
+
+  constructor () {
+      super();
+  }
+
   ngOnInit() {
     this.parties = Parties.find();
+
+    this.subscribe('parties', () => {
+        this.parties = Parties.find();
+    }, true);
   }
  
   removeParty(party) {

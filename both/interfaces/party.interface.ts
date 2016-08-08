@@ -3,4 +3,6 @@ export interface Party {
     name: string;
     description?: string;
     location: string;
+    owner?: string;
+    public: boolean;
 }
