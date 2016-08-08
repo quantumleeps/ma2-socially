@@ -1,5 +1,5 @@
 import { Component, NgZone, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ROUTER_DIRECTIVES } from '@angular/router';
 import { Tracker } from 'meteor/tracker';
 
 import { Parties } from '../../../both/collections/parties/parties.collection';
@@ -9,13 +9,15 @@ import template from './party-details.component.html';
  
 @Component({
   selector: 'party-details',
-  template
+  template,
+  directives: [ROUTER_DIRECTIVES]
 })
 export class PartyDetailsComponent implements OnInit {
     partyId: string;
     party: any;
 
     constructor(private route: ActivatedRoute, private ngZone: NgZone) {}
+
     ngOnInit () {
         this.route.params
             .map(params => params['partyId'])
@@ -27,5 +29,15 @@ export class PartyDetailsComponent implements OnInit {
                     })
                 });
             });
+    }
+
+    saveParty() {
+        Parties.update(this.party._id, {
+            $set: {
+                name: this.party.name,
+                description: this.party.description,
+                location: this.party.location
+            }
+        })
     }
 }
