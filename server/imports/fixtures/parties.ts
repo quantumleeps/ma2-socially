@@ -20,7 +20,7 @@ export function loadParties() {
         name: 'Savage lounging',
         description: 'Leisure suit required. And only fiercest manners.',
         location: 'San Francisco',
-        public: true
+        public: false
       }
     ];
  
